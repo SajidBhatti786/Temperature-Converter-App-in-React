@@ -95,3 +95,13 @@ select {
  font-size: 36px;
  color: #333;
 }
+.warning {
+ margin-top: 20px;
+ padding: 10px;
+}
+
+/* Style the warning message text */
+.warning p {
+ color: red;
+ font-weight: bold;
+}

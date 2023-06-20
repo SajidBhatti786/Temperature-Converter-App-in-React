@@ -6,6 +6,7 @@ const TemperatureConverter = () => {
   const unitRef = useRef(null);
   const [temperature, setTemperature] = useState('');
   const [unit, setUnit] = useState('celsius');
+  const [warning, setWarning] = useState('');
 
   const convertTemperature = () => {
     const inputValue = parseFloat(inputRef.current.value);
@@ -16,11 +17,23 @@ const TemperatureConverter = () => {
         const convertedTemperature = (inputValue * 9) / 5 + 32;
         setTemperature(convertedTemperature.toFixed(2));
         setUnit('Fahrenheit');
+        checkTemperature(convertedTemperature);
       } else if (selectedUnit === 'fahrenheit') {
         const convertedTemperature = ((inputValue - 32) * 5) / 9;
         setTemperature(convertedTemperature.toFixed(2));
         setUnit('Celsius');
+        checkTemperature(convertedTemperature);
       }
+    }
+  };
+
+  const checkTemperature = (convertedTemperature) => {
+    if (convertedTemperature > 100) {
+      setWarning('Too hot!');
+    } else if (convertedTemperature < 0) {
+      setWarning('Too cold!');
+    } else {
+      setWarning('');
     }
   };
 
@@ -52,6 +65,7 @@ const TemperatureConverter = () => {
             <h1>{temperature} {unit}</h1>
           </div>
         </div>
+        {warning && <div className="warning">{warning}</div>}
       </div>
     </div>
   );
